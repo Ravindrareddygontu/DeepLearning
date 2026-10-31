@@ -28,7 +28,7 @@ def download_image(item):
     return index
 
 
-for offset in range(0, 1000, 100):
+for offset in range(0, 10000, 100):
 
     params = {
         "dataset": "ylecun/mnist",
@@ -47,6 +47,6 @@ for offset in range(0, 1000, 100):
     with ThreadPoolExecutor(max_workers=20) as executor:
         results = list(executor.map(download_image, rows))
 
-    print(f"Downloaded {offset + len(rows)}/1000")
+    print(f"Downloaded {offset + len(rows)}/10000")
 
 print("Done!")

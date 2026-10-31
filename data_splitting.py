@@ -1,11 +1,13 @@
 import os
+import shutil
 
 folder_path = "mnist_images"
+images = f"{folder_path}/images"
 train_folder = "mnist_images/train"
 test_folder = "mnist_images/test"
 
-train_ratio = 0.8
-test_ratio = 0.2
+train_ratio = 0.9
+test_ratio = 0.1
 
 def split_data():
     for folder in os.listdir(folder_path):
@@ -24,4 +26,18 @@ def split_data():
                 os.makedirs(os.path.join(test_folder, folder.split("/")[-1]), exist_ok=True)
                 os.rename(os.path.join(folder, image), os.path.join(test_folder, folder.split("/")[-1], image))
 
+for i in range(10):
+    train = f"{train_folder}/{i}"
+    test = f"{test_folder}/{i}"
+    image = f"{images}/{i}"
+
+    os.makedirs(image, exist_ok=True)
+
+    for folder in [train, test]:
+        for filename in os.listdir(folder):
+            source = os.path.join(folder, filename)
+            destination = os.path.join(image, filename)
+
+            if os.path.isfile(source):
+                shutil.copy2(source, destination)
 
